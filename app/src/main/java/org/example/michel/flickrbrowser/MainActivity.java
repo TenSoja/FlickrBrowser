@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         GetRawData theRawData = new GetRawData("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,lollipop&format=json&nojsoncallback=1");
-        
+        theRawData.execute();
     }
 
 
