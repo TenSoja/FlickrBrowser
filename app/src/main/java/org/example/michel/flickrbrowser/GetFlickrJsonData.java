@@ -26,6 +26,12 @@ public class GetFlickrJsonData extends GetRawData {
         mPhotos = new ArrayList<Photo>();
     }
 
+    public void execute() {
+
+        DownloadJsonData downloadJsonData = new DownloadJsonData();
+        Log.v(LOG_TAG, "Built URI = " + mDestinationUri.toString());
+    }
+
     public boolean createAndUpdateUri(String searchCriteria, boolean matchAll) {
 
         final String FLICKR_API_BASE_URL = "https://api.flickr.com/services/feeds/photos_public.gne";
