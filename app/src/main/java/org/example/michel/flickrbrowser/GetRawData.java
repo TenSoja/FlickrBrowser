@@ -33,6 +33,10 @@ public class GetRawData {
         this.mData = null;
     }
 
+    public void setmRawUrl(String mRawUrl) {
+        this.mRawUrl = mRawUrl;
+    }
+
     public String getmData() {
         return mData;
     }
