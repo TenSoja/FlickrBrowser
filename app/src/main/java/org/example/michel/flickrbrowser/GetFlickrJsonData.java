@@ -79,7 +79,9 @@ public class GetFlickrJsonData extends GetRawData {
                 this.mPhotos.add(photoObject);
             }
 
-
+            for(Photo singlePhoto: mPhotos) {
+                Log.v(LOG_TAG, singlePhoto.toString());
+            }
 
         } catch (JSONException jsone) {
             jsone.printStackTrace();
