@@ -2,6 +2,7 @@ package org.example.michel.flickrbrowser;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,15 +22,13 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        if (savedInstanceState == null) {
-//            getSupportFragmentManager().beginTransaction()
-//                    .add(R.id.container, new PlaceholderFragment())
-//                    .commit();
-//        }
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-//        GetRawData theRawData = new GetRawData("https://api.flickr.com/services/feeds/photos_public.gne?tags=android,lollipop&format=json&nojsoncallback=1");
-        GetFlickrJsonData jsonData = new GetFlickrJsonData("android, lollipop", true);
-        jsonData.execute();
+        ProcessPhotos processPhotos = new ProcessPhotos("android,lollipop",true);
+        processPhotos.execute();
+
+
     }
 
 
@@ -72,7 +71,7 @@ public class MainActivity extends ActionBarActivity {
 
            protected void onPostExecute(String webData) {
                super.onPostExecute(webData);
-               flickrRecyblerViewAdapter = new FlickrRecyblerViewAdapter(MainActivity.this. getMPhotos());
+               flickrRecyblerViewAdapter = new FlickrRecyblerViewAdapter(MainActivity.this, getMPhotos());
                mRecyclerView.setAdapter(flickrRecyblerViewAdapter);
            }
 
