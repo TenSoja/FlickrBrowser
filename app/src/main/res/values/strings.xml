@@ -5,4 +5,5 @@
     <string name="title_activity_search">Search Activity</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="search_menu">Search</string>
 </resources>
