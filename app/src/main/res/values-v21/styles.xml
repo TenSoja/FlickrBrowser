@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.Flickr" parent="Theme.Base" />
+
+    <style name="ActionBarThemeOverlay">
+        <item name="android:textColorPrimary">@color/flickrPrimaryTextColor</item>
+        <item name="android:colorControlHighlight">@color/flickrBackgroundColor</item>
+        <item name="android:actionMenuTextColor">@color/flickrPrimaryTextColor</item>
+        <item name="android:textColorSecondary">@color/flickrSecondaryTextColor</item>
+        <item name="android:background">@color/flickrPrimaryBackgroundColor</item>
+    </style>
 </resources>
