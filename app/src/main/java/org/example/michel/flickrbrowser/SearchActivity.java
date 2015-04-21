@@ -5,9 +5,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
+
 
 
 public class SearchActivity extends BaseActivity {
@@ -26,7 +27,6 @@ public class SearchActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_search, menu);
-
         final MenuItem searchItem = menu.findItem(R.id.search_view);
         mSearchView = (SearchView) searchItem.getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
@@ -43,7 +43,7 @@ public class SearchActivity extends BaseActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
+            public boolean onQueryTextChange(String s) {
                 return true;
             }
         });
@@ -54,7 +54,6 @@ public class SearchActivity extends BaseActivity {
                 return false;
             }
         });
-
         return true;
     }
 
