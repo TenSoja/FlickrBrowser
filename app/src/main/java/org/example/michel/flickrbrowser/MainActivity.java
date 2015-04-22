@@ -30,10 +30,10 @@ public class MainActivity extends BaseActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ProcessPhotos processPhotos = new ProcessPhotos("google",true);
-        processPhotos.execute();
+        flickrRecyblerViewAdapter = new FlickrRecyblerViewAdapter(MainActivity.this,
+                new ArrayList<Photo>());
 
-
+        mRecyclerView.setAdapter(flickrRecyblerViewAdapter);
     }
 
 
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-        if(id == R.id.menu_search) {
+        if (id == R.id.menu_search) {
             Intent intent = new Intent(this, SearchActivity.class);
             startActivity(intent);
             return true;
@@ -67,44 +67,41 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(flickrRecyblerViewAdapter != null) {
-            String query = getSavedPreferenceData(FLICKR_QUERY);
-            if(query.length() > 0) {
-                ProcessPhotos processPhotos = new ProcessPhotos(query, true);
-                processPhotos.execute();
-            }
+        String query = getSavedPreferenceData(FLICKR_QUERY);
+        if (query.length() > 0) {
+            ProcessPhotos processPhotos = new ProcessPhotos(query, true);
+            processPhotos.execute();
         }
     }
 
     private String getSavedPreferenceData(String key) {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        return sharedPref.getString(key,"");
+        return sharedPref.getString(key, "");
     }
 
     public class ProcessPhotos extends GetFlickrJsonData {
 
-       public ProcessPhotos(String searchCriteria, boolean matchAll) {
-           super(searchCriteria, matchAll);
-       }
+        public ProcessPhotos(String searchCriteria, boolean matchAll) {
+            super(searchCriteria, matchAll);
+        }
 
-       public void execute() {
-           super.execute();
-           ProcessData processData = new ProcessData();
-           processData.execute();
+        public void execute() {
+            super.execute();
+            ProcessData processData = new ProcessData();
+            processData.execute();
 
-       }
+        }
 
-       public class ProcessData extends DownloadJsonData {
+        public class ProcessData extends DownloadJsonData {
 
-           protected void onPostExecute(String webData) {
-               super.onPostExecute(webData);
-               flickrRecyblerViewAdapter = new FlickrRecyblerViewAdapter(MainActivity.this, getMPhotos());
-               mRecyclerView.setAdapter(flickrRecyblerViewAdapter);
-           }
+            protected void onPostExecute(String webData) {
+                super.onPostExecute(webData);
+                flickrRecyblerViewAdapter.loadNewData(getPhotos());
+            }
 
-       }
-   }
+        }
+    }
 
 
 }
